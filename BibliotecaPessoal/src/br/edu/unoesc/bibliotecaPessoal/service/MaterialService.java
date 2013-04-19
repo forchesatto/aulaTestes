@@ -9,10 +9,14 @@ import br.edu.unoesc.bibliotecaPessoal.model.Material;
 public class MaterialService {
 
 	private EntityManager em;
+	private static EntityManagerFactory factory;
+
+	static{
+		factory = Persistence
+				.createEntityManagerFactory("Trabalho");
+	}
 	
 	public void initEm(){
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("Trabalho");
 		em = factory.createEntityManager();
 	}
 	
