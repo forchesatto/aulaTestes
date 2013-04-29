@@ -19,8 +19,14 @@ public class Material {
 	private Integer anoEdicao;
 	@Enumerated(EnumType.STRING)
 	private TipoMaterial tipoMaterial;
+	@Enumerated(EnumType.STRING)
+	private StatusMaterial status;
+	@Enumerated(EnumType.STRING)
+	private ClassificacaoIndicativa classificacaoIndicativa;
 	
-	public Material(){}
+	public Material(){
+		status = StatusMaterial.Disponivel;
+	}
 
 	public Material(String nome, Integer anoEdicao, TipoMaterial tipoMaterial) {
 		super();
@@ -91,6 +97,22 @@ public class Material {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	public StatusMaterial getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusMaterial status) {
+		this.status = status;
+	}
+
+	public ClassificacaoIndicativa getClassificacaoIndicativa() {
+		return classificacaoIndicativa;
+	}
+
+	public void setClassificacaoIndicativa(ClassificacaoIndicativa classificacaoIndicativa) {
+		this.classificacaoIndicativa = classificacaoIndicativa;
 	}
 
 }
