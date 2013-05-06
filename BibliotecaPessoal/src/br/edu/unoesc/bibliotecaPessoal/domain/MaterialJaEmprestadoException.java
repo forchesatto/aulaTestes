@@ -1,6 +1,6 @@
 package br.edu.unoesc.bibliotecaPessoal.domain;
 
-public class MaterialJaEmprestadoException extends Exception {
+public class MaterialJaEmprestadoException extends RuntimeException {
 
 	public MaterialJaEmprestadoException(String msg) {
 		super(msg);

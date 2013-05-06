@@ -1,20 +1,31 @@
 package br.edu.unoesc.bibliotecaPessoal.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import br.edu.unoesc.bibliotecaPessoal.domain.Biblioteca;
-import br.edu.unoesc.bibliotecaPessoal.domain.MaterialImproprioException;
-import br.edu.unoesc.bibliotecaPessoal.domain.MaterialJaEmprestadoException;
-import br.edu.unoesc.bibliotecaPessoal.service.ServiceFactory;
+import br.edu.unoesc.bibliotecaPessoal.domain.BibliotecaImpl;
+import br.edu.unoesc.bibliotecaPessoal.domain.MaterialImproprio;
+import br.edu.unoesc.bibliotecaPessoal.domain.MaterialJaEmprestado;
+import br.edu.unoesc.bibliotecaPessoal.domain.ProcessadorRegraEmprestimo;
+import br.edu.unoesc.bibliotecaPessoal.domain.ProcessoEmprestimo;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EmprestimoTest {
 
+	@Mock
+	private ProcessadorRegraEmprestimo processador;
+	
 	@Test
 	public void deveCriarUmEmprestimo(){
 		LocalDate dataNascimento = new LocalDate(1980, 9, 27);
@@ -31,44 +42,28 @@ public class EmprestimoTest {
 		assertEquals(dataEmprestimo,emprestimo.getDataEmprestimo());
 	}
 	
-	@Test(expected=MaterialJaEmprestadoException.class)
-	public void naoPossoEmprestarMaterialJaEmprestado() 
-			throws MaterialJaEmprestadoException, 
-			MaterialImproprioException{
-		Material material = new Material();
-		Amigo amigo = new Amigo();
-		material.setStatus(StatusMaterial.Emprestado);
-		Biblioteca biblioteca = ServiceFactory.getBiblioteca();
-		biblioteca.emprestar(material, amigo);
-	}
-	
-	@Test(expected = MaterialImproprioException.class)
-	public void naoPossoEmprestarParaMenorMaterialImproprio() 
-			throws MaterialJaEmprestadoException, 
-			MaterialImproprioException{
-		LocalDate agora = new LocalDate();
-		LocalDate dataNascimento = agora.minusYears(10);
-		Amigo amigo = new Amigo();
-		amigo.setData(dataNascimento.toDate());
-		Material material = new Material();
-		material.setClassificacaoIndicativa(ClassificacaoIndicativa.Maior);
-		Biblioteca biblioteca = ServiceFactory.getBiblioteca();
-		biblioteca.emprestar(material, amigo);
+	@Test
+	public void deveProcessarTodasAsRegras(){
+		ProcessadorRegraEmprestimo processador = 
+				new ProcessadorRegraEmprestimo();
+		List<ProcessoEmprestimo> regrasProcessadas = 
+				processador.getRegras();
+		assertEquals(2, regrasProcessadas.size());
+		assertEquals(MaterialImproprio.class, 
+				regrasProcessadas.get(0).getClass());
+		assertEquals(MaterialJaEmprestado.class, 
+				regrasProcessadas.get(1).getClass());
 	}
 	
 	@Test
-	public void possoEmprestarParaMaior() 
-			throws MaterialJaEmprestadoException, 
-			MaterialImproprioException{
-		LocalDate agora = new LocalDate();
-		LocalDate dataNascimento = agora.minusYears(18);
-		Amigo amigo = new Amigo();
-		amigo.setData(dataNascimento.toDate());
-		Material material = new Material();
-		material.setClassificacaoIndicativa(ClassificacaoIndicativa.Maior);
-		Biblioteca biblioteca = ServiceFactory.getBiblioteca();
-		biblioteca.emprestar(material, amigo);
+	public void deveExecutarProcessadoDeRegras(){
+		Biblioteca biblioteca = new BibliotecaImpl(processador);
+		
+		Emprestimo emprestimo = new Emprestimo();
+		
+		biblioteca.emprestar(emprestimo);
+		
+		Mockito.verify(processador).processar(emprestimo);
 	}
-	
 	
 }

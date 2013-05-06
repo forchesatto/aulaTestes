@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/lib/required/jboss-logging-3.1.0.GA.jar"/>
 	<classpathentry kind="lib" path="lib/lib/required/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="lib/joda-time-2.2/joda-time-2.2.jar"/>
+	<classpathentry kind="lib" path="lib/lib/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

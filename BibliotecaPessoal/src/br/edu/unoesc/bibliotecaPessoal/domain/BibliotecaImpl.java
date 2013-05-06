@@ -1,22 +1,18 @@
 package br.edu.unoesc.bibliotecaPessoal.domain;
 
-import br.edu.unoesc.bibliotecaPessoal.model.Amigo;
-import br.edu.unoesc.bibliotecaPessoal.model.Material;
-import br.edu.unoesc.bibliotecaPessoal.model.StatusMaterial;
+import br.edu.unoesc.bibliotecaPessoal.model.Emprestimo;
 
 public class BibliotecaImpl implements Biblioteca {
 
+	private ProcessadorRegraEmprestimo processadorRegraEmprestimo;
+	
+	public BibliotecaImpl(ProcessadorRegraEmprestimo processadorRegraEmprestimo){
+		this.processadorRegraEmprestimo = processadorRegraEmprestimo;
+	}
+	
 	@Override
-	public void emprestar(Material material, Amigo amigo)
-			throws MaterialJaEmprestadoException,
-			MaterialImproprioException {
-		if(material.getStatus().equals(StatusMaterial.Emprestado)){
-			throw new MaterialJaEmprestadoException("Material Já emprestado");
-		}
-		if(amigo.getIdade() < 
-				material.getClassificacaoIndicativa().getIdadeMaxima()){
-			throw new MaterialImproprioException("Material improprio");
-		}
+	public void emprestar(Emprestimo emprestimo){
+		
 	}
 
 }

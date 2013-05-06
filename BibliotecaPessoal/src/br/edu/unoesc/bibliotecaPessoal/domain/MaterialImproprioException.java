@@ -1,6 +1,6 @@
 package br.edu.unoesc.bibliotecaPessoal.domain;
 
-public class MaterialImproprioException extends Exception {
+public class MaterialImproprioException extends RuntimeException {
 
 	public MaterialImproprioException(String msg) {
 		super(msg);

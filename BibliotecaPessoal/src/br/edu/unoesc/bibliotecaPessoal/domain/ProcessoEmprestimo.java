@@ -2,8 +2,7 @@ package br.edu.unoesc.bibliotecaPessoal.domain;
 
 import br.edu.unoesc.bibliotecaPessoal.model.Emprestimo;
 
-public interface Biblioteca {
+public interface ProcessoEmprestimo {
 
-	void emprestar(Emprestimo emprestimo);
-
+	void processar(Emprestimo emprestimo);
 }
