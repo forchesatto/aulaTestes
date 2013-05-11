@@ -13,6 +13,7 @@ public class ProcessadorRegraEmprestimo {
 		this.processos = new ArrayList<>();
 		this.processos.add(new MaterialImproprio());
 		this.processos.add(new MaterialJaEmprestado());
+		this.processos.add(new LimiteEmprestimo());
 	}
 	
 	public void processar(Emprestimo emprestimo){

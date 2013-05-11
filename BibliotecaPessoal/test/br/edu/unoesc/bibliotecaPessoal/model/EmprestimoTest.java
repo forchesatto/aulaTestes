@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import br.edu.unoesc.bibliotecaPessoal.domain.Biblioteca;
 import br.edu.unoesc.bibliotecaPessoal.domain.BibliotecaImpl;
+import br.edu.unoesc.bibliotecaPessoal.domain.LimiteEmprestimo;
 import br.edu.unoesc.bibliotecaPessoal.domain.MaterialImproprio;
 import br.edu.unoesc.bibliotecaPessoal.domain.MaterialJaEmprestado;
 import br.edu.unoesc.bibliotecaPessoal.domain.ProcessadorRegraEmprestimo;
@@ -48,11 +49,13 @@ public class EmprestimoTest {
 				new ProcessadorRegraEmprestimo();
 		List<ProcessoEmprestimo> regrasProcessadas = 
 				processador.getRegras();
-		assertEquals(2, regrasProcessadas.size());
+		assertEquals(3, regrasProcessadas.size());
 		assertEquals(MaterialImproprio.class, 
 				regrasProcessadas.get(0).getClass());
 		assertEquals(MaterialJaEmprestado.class, 
 				regrasProcessadas.get(1).getClass());
+		assertEquals(LimiteEmprestimo.class, 
+				regrasProcessadas.get(2).getClass());
 	}
 	
 	@Test
