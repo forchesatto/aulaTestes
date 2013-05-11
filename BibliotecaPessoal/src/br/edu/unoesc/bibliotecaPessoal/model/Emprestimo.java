@@ -8,6 +8,7 @@ public class Emprestimo {
 	private Amigo amigo;
 	private Material material;
 	private Date dataPrevistaDevolucao;
+	private StatusEmprestimo status;
 	
 	public Emprestimo(){
 		
@@ -43,6 +44,14 @@ public class Emprestimo {
 	}
 	public void setDataPrevistaDevolucao(Date dataPrevistaDevolucao) {
 		this.dataPrevistaDevolucao = dataPrevistaDevolucao;
+	}
+
+	public StatusEmprestimo getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEmprestimo status) {
+		this.status = status;
 	}
 	
 	

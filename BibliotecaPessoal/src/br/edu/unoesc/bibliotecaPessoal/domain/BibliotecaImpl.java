@@ -12,7 +12,7 @@ public class BibliotecaImpl implements Biblioteca {
 	
 	@Override
 	public void emprestar(Emprestimo emprestimo){
-		
+		processadorRegraEmprestimo.processar(emprestimo);
 	}
 
 }

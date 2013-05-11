@@ -1,6 +1,8 @@
 package br.edu.unoesc.bibliotecaPessoal.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
@@ -9,6 +11,7 @@ public class Amigo {
 
 	private String nome;
 	private Date data;
+	private List<Emprestimo> emprestimos;
 	
 	public Amigo(){}
 	
@@ -18,6 +21,13 @@ public class Amigo {
 		this.data = data;
 	}
 
+	public void addEmprestimo(Emprestimo emprestimo){
+		if(emprestimos == null){
+			emprestimos = new ArrayList<>();
+		}
+		emprestimos.add(emprestimo);
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -38,6 +48,14 @@ public class Amigo {
 		LocalDate dataNas = new LocalDate(getData());
 		LocalDate agora = new LocalDate();
 		return Years.yearsBetween(dataNas, agora).getYears();
+	}
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}
 	
 	
