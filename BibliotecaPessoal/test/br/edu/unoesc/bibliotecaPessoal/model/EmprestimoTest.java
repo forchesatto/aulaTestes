@@ -68,5 +68,18 @@ public class EmprestimoTest {
 		
 		Mockito.verify(processador).processar(emprestimo);
 	}
+	@Test
+	public void deveMudarStatusEmprestimoEMaterial(){
+		Biblioteca biblioteca = new BibliotecaImpl(processador);
+		
+		Emprestimo emprestimo = new Emprestimo();
+		emprestimo.setMaterial(new Material());
+		
+		biblioteca.emprestar(emprestimo);
+		
+		assertEquals(StatusEmprestimo.Ativo, emprestimo.getStatus());
+		assertEquals(StatusMaterial.Emprestado, emprestimo.getMaterial().getStatus());
+		
+	}
 	
 }
