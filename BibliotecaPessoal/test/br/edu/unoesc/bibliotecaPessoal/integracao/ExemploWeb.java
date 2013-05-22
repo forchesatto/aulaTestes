@@ -1,5 +1,8 @@
 package br.edu.unoesc.bibliotecaPessoal.integracao;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,7 +10,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ExemploWeb {
 
-	public static void main(String[] args){
+	@Test
+	public void testWebDriver(){
 		WebDriver driver = new FirefoxDriver();
 		
 		driver.get("http://www.google.com.br/");
@@ -17,6 +21,10 @@ public class ExemploWeb {
 		
 		campoDeTexto.submit();
 		
-		driver.getPageSource().contains("Unoesc");
+		boolean resultadoUnoesc = driver.getPageSource().contains("Unoesc");
+		
+		assertTrue(resultadoUnoesc);
+		
+		driver.close();
 	}
 }
